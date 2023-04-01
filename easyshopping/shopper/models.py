@@ -4,6 +4,12 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+CATEGORIES = [
+    ('Искусство', 'Искусство'),
+    ('Цифровые товары', 'Цифровые товары'),
+    ('Одежда', 'Одежда')
+]
+
 class User(AbstractUser):
     """ Abstract model for each user """
     pass
@@ -35,8 +41,18 @@ class Good:
         upload_to='/images',
         null=False,
         blank=True,
+        verbose_name='Изображение товара'
     )
 
     availability = models.BooleanField(
         default=False,
     )
+
+    categories = models.CharField(
+        max_length=255,
+        choices=CATEGORIES,
+        default='Цифровые товары',
+    )
+
+    def __str__(self):
+        return f"Товар {self.title}"
