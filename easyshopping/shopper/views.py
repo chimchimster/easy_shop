@@ -1,11 +1,11 @@
 from django.shortcuts import render
-
+from .models import Good, Shop
 
 
 def index(request):
 
-    pass
+    shops = Shop.objects.all()
 
     return render(request, 'shopper/index.html', {
-        'test': None
+        'shops': shops,
     })

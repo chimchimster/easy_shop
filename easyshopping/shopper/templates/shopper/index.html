@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main Page</title>
-</head>
-<body>
+{% extends 'shopper/layout.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block body %}
+
+{% for shop in shops %}
+    <div>
+        <h3>{{ shop.title }}</h3>
+        <span>{{ shop.description }}</span>
+        <span>{{ shop.adress }}</span>
+        <span>{{ shop.contacts }}</span>
+        <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="500" height="500">
+    </div>
+{% endfor %}
+
+{% endblock %}

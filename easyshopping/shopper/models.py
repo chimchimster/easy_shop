@@ -10,11 +10,13 @@ CATEGORIES = [
     ('Одежда', 'Одежда')
 ]
 
+
 class User(AbstractUser):
     """ Abstract model for each user """
     pass
 
-class Good:
+
+class Good(models.Model):
     """ Model which represents each item in shop """
 
     title = models.CharField(
@@ -38,7 +40,7 @@ class Good:
     )
 
     image = models.ImageField(
-        upload_to='/images',
+        upload_to='images',
         null=False,
         blank=True,
         verbose_name='Изображение товара'
@@ -46,6 +48,7 @@ class Good:
 
     availability = models.BooleanField(
         default=False,
+        verbose_name='Доступно на складе'
     )
 
     categories = models.CharField(
@@ -56,3 +59,42 @@ class Good:
 
     def __str__(self):
         return f"Товар {self.title}"
+
+
+class Shop(models.Model):
+    title = models.CharField(
+        max_length=255,
+        null=False,
+        blank=True,
+        verbose_name='Магазин',
+    )
+
+    description = models.TextField(
+        null=False,
+        blank=True,
+        verbose_name='Описание магазина'
+    )
+
+    address = models.CharField(
+        max_length=255,
+        null=False,
+        blank=True,
+        verbose_name='Адрес магазина',
+    )
+
+    contacts = models.CharField(
+        max_length=255,
+        null=False,
+        blank=True,
+        verbose_name='Контакты',
+    )
+
+    image = models.ImageField(
+        upload_to='images',
+        null=False,
+        blank=True,
+        verbose_name='Изображение магазина'
+    )
+
+    def __str__(self):
+        return f'Магазин {self.title}'
