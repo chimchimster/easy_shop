@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import render
 from .models import Good, Shop
+from .forms import SearchForm
 
 
 class IndexView(ListView):
@@ -17,10 +18,16 @@ class IndexView(ListView):
         # Add query items to context
         context['shops'] = self.get_queryset()
 
+        # Add search from to context
+        context['search'] = SearchForm()
+
+        print(context)
+
         return context
 
     def get_queryset(self):
         return Shop.objects.all()
+
 
 
 class ShopView(DetailView):

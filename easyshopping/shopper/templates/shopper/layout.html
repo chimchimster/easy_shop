@@ -18,20 +18,11 @@
         </div>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="">Магазины</a>
+                <a class="nav-link" href="{% url 'index' %}">Магазины</a>
             </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="">Выйти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Категории</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Товары</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Добавить товар</a>
                 </li>
             {% else %}
                 <li class="nav-item">
