@@ -1,11 +1,20 @@
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import render
 from .models import Good, Shop
 
 
-def index(request):
+class Index(ListView):
+    """ Describes all shops page """
 
-    shops = Shop.objects.all()
+    # Difine a model and template which must be rendered
+    model = Shop
+    template_name = 'shopper/index.html'
 
-    return render(request, 'shopper/index.html', {
-        'shops': shops,
-    })
+    def get_context_data(self, *, object_list=None, **kwargs):
+        # Retrieves context
+        context = super().get_context_data(**kwargs)
+        context['shops'] = self.get_queryset()
+        return context
+
+    def get_queryset(self):
+        return Shop.objects.all()
