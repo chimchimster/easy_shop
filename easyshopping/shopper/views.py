@@ -35,10 +35,9 @@ class ShopView(DetailView):
     def get_context_data(self, **kwargs):
         # Retrieves context
         context = super().get_context_data(**kwargs)
-        print(context)
 
         # Add query items to context
-        context['shop'] = self.get_queryset()
+        context['shop'] = self.get_queryset().get()
 
         return context
 

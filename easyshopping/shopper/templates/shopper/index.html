@@ -5,11 +5,13 @@
 
 {% for shop in shops %}
     <div>
-        <h3>{{ shop.title }}</h3>
+        <h3>
+            <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
+        </h3>
         <span>{{ shop.description }}</span>
         <span>{{ shop.adress }}</span>
         <span>{{ shop.contacts }}</span>
-        <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="500" height="500">
+        <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300">
     </div>
 {% endfor %}
 
