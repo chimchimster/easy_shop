@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, LoginView
 from django.shortcuts import render
 from .models import Good, Shop
 from .forms import SearchForm
