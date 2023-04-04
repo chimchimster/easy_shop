@@ -45,4 +45,5 @@ align-items: center;
 }
 .mainShopContainer>h3>a {
     color: black;
+    background-color: aqua;
 }
