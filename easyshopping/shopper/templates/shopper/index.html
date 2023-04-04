@@ -2,17 +2,17 @@
 {% load static %}
 
 {% block body %}
-<div>{{ search }}</div>
 
 {% for shop in shops %}
-    <div>
+    <div class="mainShopContainer">
         <h3>
             <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
         </h3>
+        <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300">
         <span>{{ shop.description }}</span>
         <span>{{ shop.adress }}</span>
         <span>{{ shop.contacts }}</span>
-        <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300">
+    
     </div>
 {% endfor %}
 

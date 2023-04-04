@@ -8,19 +8,29 @@
         <link href="{% static 'shopper/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-        <h1>Просто шоппинг</h1>
-        <div>
-            {% if user.is_authenticated %}
-                Вы вошли, как <strong>{{ user.username }}</strong>.
-            {% else %}
-                Not signed in.
-            {% endif %}
-        </div>
+        
+        <div class="nav-conteiner">
+        <nav>
         <ul class="nav">
+            <li class="nav-item">
+            <h1>Просто шоппинг</h1>
+        </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'index' %}">Магазины</a>
             </li>
+           
+        </ul>
+        </nav>
+        <nav>
+            <ul class="nav">
             {% if user.is_authenticated %}
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+                    Вы вошли, как <strong>{{ user.username }}</strong>.
+                {% else %}
+                    Not signed in.
+                {% endif %}
+            </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Выйти</a>
                 </li>
@@ -33,6 +43,9 @@
                 </li>
             {% endif %}
         </ul>
+    </nav>
+</div>
+
         <hr>
         {% block body %}
         {% endblock %}

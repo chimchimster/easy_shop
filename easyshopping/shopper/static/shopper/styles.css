@@ -1,3 +1,48 @@
 body {
-    padding: 10px;
+    padding: 0px;
+}
+.h1 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.nav-conteiner {
+    display: flex;
+    justify-content: space-between;
+    background-color:beige;
+    align-items: center;
+   
+}
+.nav-conteiner>nav>ul {
+display: flex;
+align-items: center;
+}
+.nav-conteiner>nav>ul>li {
+    display: block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.nav-conteiner>nav>ul>li>a {
+    display: block;
+    padding: 5px;
+    border-style: solid;
+    border-width: 0.5px;
+     color:black;
+  background-color: transparent;
+}
+
+/* Shop conteiners */
+.mainShopContainer {
+    display: inline-block;
+    width: 350px;
+    vertical-align:top;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    border-style: solid;
+    border-width: 0.5px;
+     border-color: rgb(224, 224, 199);
+     background-color: beige;
+}
+.mainShopContainer>h3>a {
+    color: black;
 }
