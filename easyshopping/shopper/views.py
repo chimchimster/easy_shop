@@ -1,7 +1,10 @@
+from django.contrib.auth import logout
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
-from django.shortcuts import render
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect
 from .models import Good, Shop
-from .forms import SearchForm
+from .forms import SearchForm, LoginUserForm
 
 
 class IndexView(ListView):
@@ -50,3 +53,23 @@ class ShopView(DetailView):
 
     def get_queryset(self):
         return Shop.objects.filter(slug=self.kwargs['shop_slug'])
+
+
+class UserLogin(LoginView):
+    form_class = LoginUserForm
+    template_name = 'shopper/login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['title'] = 'Авторизация'
+
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('index')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')

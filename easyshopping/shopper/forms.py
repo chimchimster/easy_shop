@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from .models import Shop
 
 
@@ -10,3 +11,8 @@ class SearchForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput()
         }
+
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput())
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput())
