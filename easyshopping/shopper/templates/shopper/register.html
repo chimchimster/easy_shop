@@ -1,19 +1,22 @@
 {% extends 'shopper/layout.html' %}
 
 {% block body %}
-<h1>{{ title }}</h1>
+<div class="motherRegContainer">
+    <div class="regContainer">
+        <h1>{{ title }}</h1>
 
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
+            {% for f in form %}
+            <p><label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+            <div>{{ f.errors }}</div>
+            {% endfor %}
 
-    {% for f in form %}
-        <p><label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
-        <div>{{ f.errors }}</div>
-    {% endfor %}
-
-    <button type="submit">Зарегистрироваться</button>
-</form>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

@@ -70,8 +70,17 @@ align-items: center;
     text-decoration: none;
 }
 
-@media (max-width: 900px) {
-    .nav-conteiner>ul {
-flex-direction: column;
-text-align: center;
-}}
+/* Registration */
+.motherRegContainer {
+    display: block;
+}
+.regContainer {
+    display: inline-block;
+    
+    text-align: center;
+    border-style: solid;
+    border-width: 0.5px;
+     border-color: rgb(224, 224, 199);
+     background-color: beige;
+     border-radius: 30px;
+}
