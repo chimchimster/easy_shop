@@ -4,17 +4,25 @@
 <div class="motherRegContainer">
     <div class="regContainer">
         <h1>{{ title }}</h1>
-
+        <hr>
         <form method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
 
             {% for f in form %}
-            <p><label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+           
+            <p>
+                <div class="form-group">
+
+                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+            </div>
+            <div class="text-input">
+                <div>{{ f }}</div></p>
+            </div>
             <div>{{ f.errors }}</div>
             {% endfor %}
 
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit" class="regButton">Зарегистрироваться</button>
         </form>
     </div>
 </div>
