@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import Shop
 
 
@@ -21,5 +23,9 @@ class LoginForm(AuthenticationForm):
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(label='Имя пользователя', widget=forms.TextInput())
     email = forms.CharField(label='Электронная почта', widget=forms.EmailInput())
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput())
-    repeat_password = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput())
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput())
+    password2 = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput())
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'email', 'password1', 'password2')

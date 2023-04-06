@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .models import Good, Shop
+from .models import Good, Shop, User
 from .forms import SearchForm, LoginForm, RegistrationForm
 
 
@@ -68,6 +68,7 @@ class UserLogin(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('index')
+
 
 class RegisterUser(CreateView):
     form_class = RegistrationForm
