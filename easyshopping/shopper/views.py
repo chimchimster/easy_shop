@@ -1,10 +1,10 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from .models import Good, Shop
-from .forms import SearchForm, LoginUserForm
+from .forms import SearchForm, LoginForm, RegistrationForm
 
 
 class IndexView(ListView):
@@ -56,7 +56,7 @@ class ShopView(DetailView):
 
 
 class UserLogin(LoginView):
-    form_class = LoginUserForm
+    form_class = LoginForm
     template_name = 'shopper/login.html'
 
     def get_context_data(self, **kwargs):
@@ -68,6 +68,24 @@ class UserLogin(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('index')
+
+class RegisterUser(CreateView):
+    form_class = RegistrationForm
+    template_name = 'shopper/register.html'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['title'] = 'Регистрация'
+
+        return context
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+
+        return redirect('index')
 
 
 def logout_user(request):
