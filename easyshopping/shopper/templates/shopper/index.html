@@ -9,7 +9,7 @@
         <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
     </h3>
     <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300">
-    <span>{{ shop.description }}</span>
+    <span>{{ shop.description|slice:150 }}...</span>
     <span>{{ shop.adress }}</span>
     <span>{{ shop.contacts }}</span>
 

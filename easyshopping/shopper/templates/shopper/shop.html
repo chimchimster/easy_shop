@@ -9,7 +9,7 @@
             </h3>
         </li>
         <li><img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300"></li>
-        <li>{{ shop.description }}</li>
+        <li>{{ shop.description|slice:150 }}...</li>
         <li>{{ shop.address }}</li>
         <li>{{ shop.contacts }}</li>
     </ul>
