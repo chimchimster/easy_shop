@@ -1,13 +1,17 @@
 {% extends 'shopper/layout.html' %}
 
 {% block body %}
-<div>
-    <h3>
-        <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
-    </h3>
-    {{ shop.description }}
-    {{ shop.address }}
-    {{ shop.contacts }}
-    <img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300">
+<div class="shopHomePage">
+    <ul>
+        <li>
+            <h3>
+                <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
+            </h3>
+        </li>
+        <li><img src="{{ shop.image.url }}" alt="{{ shop.title }}" width="300" height="300"></li>
+        <li>{{ shop.description }}</li>
+        <li>{{ shop.address }}</li>
+        <li>{{ shop.contacts }}</li>
+    </ul>
 </div>
 {% endblock %}
