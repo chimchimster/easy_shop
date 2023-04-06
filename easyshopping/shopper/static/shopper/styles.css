@@ -1,9 +1,7 @@
 body {
     padding: 0px;
 }
-.h1 {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* Top navigation bar */
 .nav-conteiner {
     display: flex;
     justify-content: space-between;
@@ -27,6 +25,7 @@ align-items: center;
     border-width: 0.5px;
      color:black;
   background-color: transparent;
+   border-radius: 10px;
 }
 
 /* Shop conteiners */
@@ -35,15 +34,44 @@ align-items: center;
     width: 350px;
     vertical-align:top;
     text-align: center;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 10px;
     padding: 5px;
     border-style: solid;
     border-width: 0.5px;
      border-color: rgb(224, 224, 199);
      background-color: beige;
+     border-radius: 30px;
 }
 .mainShopContainer>h3>a {
     color: black;
-    background-color: aqua;
+    text-decoration: none;
 }
+/* Shop home page */
+.shopHomePage {
+    
+    display: block;
+    width: 350px;
+    text-align: center;
+    border-style: solid;
+    border-width: 0.5px;
+     border-color: rgb(224, 224, 199);
+     background-color: beige;
+     border-radius: 30px;
+     
+     
+}
+.shopHomePage>ul {
+   list-style-type: none;
+   padding-left: 0;
+}
+.shopHomePage>ul>li>h3>a {
+
+    color: black;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .nav-conteiner>ul {
+flex-direction: column;
+text-align: center;
+}}
