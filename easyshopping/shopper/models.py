@@ -19,6 +19,13 @@ class User(AbstractUser):
 class Good(models.Model):
     """ Model which represents each item in shop """
 
+    shop = models.ForeignKey(
+        'Shop',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+
     title = models.CharField(
         max_length=255,
         null=False,

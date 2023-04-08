@@ -2,7 +2,7 @@ from django.contrib.auth import logout, login
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Good, Shop, User
 from .forms import SearchForm, LoginForm, RegistrationForm
 
@@ -46,13 +46,13 @@ class ShopView(DetailView):
         # Retrieves context
         context = super().get_context_data(**kwargs)
 
-        # Add query items to context
-        context['shop'] = self.get_queryset().get()
+        # Query contains shop details
+        context['shop'] = get_object_or_404(Shop.objects.filter(slug=self.kwargs['shop_slug']).get())
+
+        # Query contains goods related to shop
+        context['goods'] = get_object_or_404(Good.objects.select_related('shop').filter(shop__slug=self.kwargs['shop_slug']))
 
         return context
-
-    def get_queryset(self):
-        return Shop.objects.filter(slug=self.kwargs['shop_slug'])
 
 
 class UserLogin(LoginView):
