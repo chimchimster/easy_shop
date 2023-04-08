@@ -47,10 +47,10 @@ class ShopView(DetailView):
         context = super().get_context_data(**kwargs)
 
         # Query contains shop details
-        context['shop'] = get_object_or_404(Shop.objects.filter(slug=self.kwargs['shop_slug']).get())
+        context['shop'] = get_object_or_404(Shop.objects.filter(slug=self.kwargs['shop_slug']))
 
         # Query contains goods related to shop
-        context['goods'] = get_object_or_404(Good.objects.select_related('shop').filter(shop__slug=self.kwargs['shop_slug']))
+        context['goods'] = Good.objects.select_related('shop').filter(shop__slug=self.kwargs['shop_slug'])
 
         return context
 
