@@ -87,8 +87,6 @@ class Products(models.Model):
         verbose_name='Количество товара',
     )
 
-    def __str__(self):
-        return self.pk
 
     class Meta:
         verbose_name = 'Товар'
@@ -121,7 +119,7 @@ class ProductsDescription(models.Model):
         verbose_name='ID товара'
     )
 
-    p_id = models.OneToOneField(
+    p_id = models.ForeignKey(
         Products,
         unique=True,
         on_delete=models.PROTECT
@@ -167,6 +165,20 @@ class ProductsDescription(models.Model):
         null=True,
         blank=True,
         verbose_name='Дополнительные аттрибуты',
+    )
+
+    p_is_hit = models.BooleanField(
+        default=False,
+        null=True,
+        blank=True,
+        verbose_name='Хит продаж',
+    )
+
+    p_is_on_sale = models.BooleanField(
+        default=False,
+        null=True,
+        blank=True,
+        verbose_name='Скидка',
     )
 
     class Meta:
@@ -249,7 +261,7 @@ class OrdersStatus(models.Model):
         verbose_name='ID статуса заказа',
     )
 
-    o_id = models.OneToOneField(
+    o_id = models.ForeignKey(
         Orders,
         null=True,
         unique=True,
