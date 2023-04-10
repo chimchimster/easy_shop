@@ -1,4 +1,11 @@
+import json
+
+import simplejson as simplejson
 from django.contrib.auth import logout
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db import connection
+from django.http import JsonResponse, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import render
@@ -24,3 +31,13 @@ class IndexView(TemplateView):
         ).filter(productsdescription__p_is_on_sale=True)
 
         return context
+
+def sales_hits(request):
+    """ API responsible for section of sales hits """
+
+    query = Products.objects.select_related().values(
+            'productsdescription__p_name',
+            'productsdescription__p_images',
+        ).filter(productsdescription__p_is_hit=True)
+
+    return HttpResponse(simplejson.dumps([item for item in query]))
