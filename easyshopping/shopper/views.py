@@ -35,9 +35,25 @@ class IndexView(TemplateView):
 def sales_hits(request):
     """ API responsible for section of sales hits """
 
+    start = int(request.GET.get('start') or 2)
+    end = int(request.GET.get('end') or (start + 9))
+
     query = Products.objects.select_related().values(
             'productsdescription__p_name',
             'productsdescription__p_images',
         ).filter(productsdescription__p_is_hit=True)
 
-    return HttpResponse(simplejson.dumps([item for item in query]))
+    json_objects = simplejson.dumps([item for item in query])
+
+
+    # Create list and fill it by objects
+    data = []
+    try:
+        for i in range(start, end+1):
+            data.append(json.loads(json_objects)[i])
+    except IndexError:
+        pass
+
+    return JsonResponse(
+        {'products': data,}
+    )

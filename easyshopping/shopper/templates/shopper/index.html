@@ -2,14 +2,8 @@
 {% load static %}
 
 {% block body %}
-
 <h1>Хиты продаж</h1>
-{% for product in is_hit %}
-    {{ product.p_name }}
-    <img src="/media/{{ product.productsdescription__p_images }}" alt="{{ product.p_name }}" width="150" height="150">
-    {{ product.p_model }}
-    {{ product.p_price }}
-{% endfor %}
+<div id="sales-products"></div>
 
 <h1>Скидки</h1>
 {% for product in is_sale %}
@@ -21,8 +15,9 @@
 
 
 
-
 {% endblock %}
 
 
-<div id="sales-products"></div>
+{% block script %}
+<script src="{% static 'shopper/index.js' %}"></script>
+{% endblock %}
