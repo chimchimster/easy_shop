@@ -158,6 +158,7 @@ width:  95%;
    border-radius: 10px;
    margin-bottom: 10px;
    background-color: rgb(247, 193, 239);
+<<<<<<< HEAD
 }
 /* Login */
 .loginMainContainer>h1 {
@@ -239,4 +240,6 @@ display: inline-block;
 .regContainer>p {
     margin-top: 0px;
     margin-bottom: 0px;
+=======
+>>>>>>> 0a2ba848442ea83a3f1edfc49630168fa7df3fe9
 }

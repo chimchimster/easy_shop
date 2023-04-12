@@ -1,94 +1,59 @@
-from django.contrib.auth import logout, login
+import json
+
+import simplejson as simplejson
+from django.contrib.auth import logout
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db import connection
+from django.http import JsonResponse, HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView
+from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .models import Good, Shop, User
-from .forms import SearchForm, LoginForm, RegistrationForm
+from .models import ProductsDescription, Products
 
 
-class IndexView(ListView):
-    """ Describes all shops page """
-
-    # Define a model and template which must be rendered
-    model = Shop
+class IndexView(TemplateView):
     template_name = 'shopper/index.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        # Retrieves context
-        context = super().get_context_data(**kwargs)
-
-        # Add query items to context
-        context['shops'] = self.get_queryset()
-
-        # Add search from to context
-        context['search'] = SearchForm()
-
-        print(context)
-
-        return context
-
-    def get_queryset(self):
-        return Shop.objects.all()
-
-
-
-class ShopView(DetailView):
-    """ Describes each unique shop """
-
-    # Define model, template and slug for URL
-    model = Shop
-    template_name = 'shopper/shop.html'
-    slug_url_kwarg = 'shop_slug'
-    context_object_name = 'shop'
-
-    def get_context_data(self, **kwargs):
-        # Retrieves context
-        context = super().get_context_data(**kwargs)
-
-        # Add query items to context
-        context['shop'] = self.get_queryset().get()
-
-        return context
-
-    def get_queryset(self):
-        return Shop.objects.filter(slug=self.kwargs['shop_slug'])
-
-
-class UserLogin(LoginView):
-    form_class = LoginForm
-    template_name = 'shopper/login.html'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['title'] = 'Авторизация'
+        context['is_hit'] = Products.objects.select_related().values(
+            'productsdescription__p_name',
+            'productsdescription__p_images',
+        ).filter(productsdescription__p_is_hit=True)
+
+        context['is_sale'] = Products.objects.select_related().values(
+            'productsdescription__p_name',
+            'productsdescription__p_images',
+        ).filter(productsdescription__p_is_on_sale=True)
 
         return context
 
-    def get_success_url(self):
-        return reverse_lazy('index')
+def sales_hits(request):
+    """ API responsible for section of sales hits """
+
+    start = int(request.GET.get('start') or 2)
+    end = int(request.GET.get('end') or (start + 9))
+
+    query = Products.objects.select_related().values(
+            'productsdescription__p_name',
+            'productsdescription__p_images',
+        ).filter(productsdescription__p_is_hit=True)
+
+    json_objects = simplejson.dumps([item for item in query])
 
 
-class RegisterUser(CreateView):
-    form_class = RegistrationForm
-    template_name = 'shopper/register.html'
-    success_url = reverse_lazy('index')
+    # Create list and fill it by objects
+    data = []
+    try:
+        for i in range(start, end+1):
+            data.append(json.loads(json_objects)[i])
+    except IndexError:
+        pass
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['title'] = 'Регистрация'
-
-        return context
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-
-        return redirect('index')
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('login')
+    return JsonResponse(
+        {'products': data,}
+    )

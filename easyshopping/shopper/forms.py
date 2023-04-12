@@ -2,17 +2,6 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from .models import Shop
-
-
-class SearchForm(forms.ModelForm):
-    class Meta:
-        model = Shop
-        exclude = ()
-        fields = ['title',]
-        widgets = {
-            'title': forms.TextInput()
-        }
 
 
 class LoginForm(AuthenticationForm):

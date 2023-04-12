@@ -6,9 +6,9 @@
         <title>{% block title %}Просто шоппинг{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'shopper/styles.css' %}" rel="stylesheet">
+
     </head>
     <body>
-        
         <div class="nav-conteiner">
         <nav>
 
@@ -33,22 +33,25 @@
                 {% endif %}
             </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                    <a class="nav-link" href="">Выйти</a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                    <a class="nav-link" href="">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться</a>
+                    <a class="nav-link" href="">Зарегистрироваться</a>
                 </li>
             {% endif %}
         </ul>
     </nav>
 </div>
-
         <hr>
+        {% block script %}
+        {% endblock %}
         {% block body %}
         {% endblock %}
     </body>
+
+
 </html>
