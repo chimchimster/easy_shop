@@ -60,8 +60,8 @@ function clear_slider(element) {
     el.style.transition = `opacity 1000ms`;
     el.style.opacity = 0;
 
-     setTimeout(() => {
-    el.style.opacity = 9;},
+    setTimeout(() => {
+    el.style.opacity = 1;},
      10);
     document.getElementById(element).innerHTML = ''
 }

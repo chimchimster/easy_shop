@@ -158,7 +158,6 @@ width:  95%;
    border-radius: 10px;
    margin-bottom: 10px;
    background-color: rgb(247, 193, 239);
-<<<<<<< HEAD
 }
 /* Login */
 .loginMainContainer>h1 {
@@ -240,6 +239,48 @@ display: inline-block;
 .regContainer>p {
     margin-top: 0px;
     margin-bottom: 0px;
-=======
->>>>>>> 0a2ba848442ea83a3f1edfc49630168fa7df3fe9
+}
+
+
+div>.sales-product {
+    display: inline-block;
+        width: 220px;
+    height: 280px;
+    background-color: rgb(255, 240, 253);
+    margin: 0px 15px 0px 15px;
+    text-align: center;
+    text-align: center;
+    border-radius: 30px;
+    border: 1px solid rgb(0, 0, 0);
+}
+.slider-hits {
+    text-align: center;
+       
+    }
+div>.sales-product>div>img {
+    width: 200px;
+    height: 200px;
+}
+div>.sales-product>div>p {
+    display: inline-block;
+    margin: 10px;
+    font-size: 24px;
+}
+
+.slider-hits>h2 {
+    display: inline-block;
+    text-align: center;
+    border-radius: 10px;
+}
+
+div>.buttonsArrows {
+    text-align: center;
+    margin: 15px }
+
+.slider-sales>h2 {
+    text-align: center;
+   
+}
+.buttonsArrows>button {
+    margin: 5px 10px;
 }
