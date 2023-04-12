@@ -1,16 +1,26 @@
 // Start with second product
-const counter = 2;
+const counter = 0;
 
 // Quantity of products to load
 const quantity = 2;
 
+// Right and left slides variables
+const right = 1;
+const left = -1;
+
 // When DOM is loaded let's generate sales hits
-document.addEventListener('DOMContentLoaded', load);
+document.addEventListener('DOMContentLoaded', function() {
+    load(0)
+
+    slide('slide-right', right)
+    slide('slide-left', left)
+
+});
 
 // Load all products
-function load() {
+function load(increment) {
     // Set start and end of products to load it
-    const start = counter;
+    const start = counter + increment;
     const end = start + quantity;
 
     // Get products and add it to DOM
@@ -32,4 +42,25 @@ function add_product(contents) {
 
     // Add product to DOM
     document.getElementById('sales-products').append(product);
+}
+
+// Links function to specific button
+function slide(button_id, destination) {
+    document.getElementById(button_id).onclick = function() {
+        load(destination)
+        clear_slider('sales-products')
+    }
+}
+
+// Clear slider
+function clear_slider(element) {
+    el = document.getElementById(element)
+    el.style.opacity = 0;
+    el.style.display = 'block';
+    el.style.transition = `opacity 15ms`;
+
+     setTimeout(() => {
+    el.style.opacity = 1;},
+     10);
+    document.getElementById(element).innerHTML = ''
 }
