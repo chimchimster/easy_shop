@@ -35,25 +35,29 @@ class IndexView(TemplateView):
 def sales_hits(request):
     """ API responsible for section of sales hits """
 
-    start = int(request.GET.get('start') or 2)
-    end = int(request.GET.get('end') or (start + 9))
+    start = int(request.GET.get('start') or 0)
+    end = int(request.GET.get('end') or start)
 
     query = Products.objects.select_related().values(
             'productsdescription__p_name',
             'productsdescription__p_images',
-        ).filter(productsdescription__p_is_hit=True)
+        ).filter(productsdescription__p_is_hit=True).distinct()
 
     json_objects = simplejson.dumps([item for item in query])
 
+    json_data = json.loads(json_objects)
 
     # Create list and fill it by objects
     data = []
     try:
-        for i in range(start, end+1):
-            data.append(json.loads(json_objects)[i])
+        for i in range(start, end):
+            data.append(json_data[i])
     except IndexError:
         pass
 
     return JsonResponse(
-        {'products': data,}
+        {
+            'products': data,
+            'length': len(json_data),
+         },
     )
