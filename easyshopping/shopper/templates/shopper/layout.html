@@ -13,16 +13,12 @@
         <nav>
 
         <ul class="nav">
-            <li class="nav-item">
-            <h1>Просто шоппинг</h1>
-        </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Магазины</a>
-            </li>
-           
+            <li class="logo">
+            <h1>Shop Logo</h1>
         </ul>
         </nav>
         <nav>
+           
             <ul class="nav">
             {% if user.is_authenticated %}
             <li class="nav-item">
@@ -32,21 +28,56 @@
                     Вы не вошли в систему.
                 {% endif %}
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Корзина</a>
+            </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Выйти</a>
+                    <a class="nav-link-box" href="">Выйти</a>
                 </li>
             {% else %}
+        
                 <li class="nav-item">
-                    <a class="nav-link" href="">Войти</a>
+                    <a class="nav-button" href="">Войти</a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-button" href="">Зарегистрироваться</a>
+                </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="">Зарегистрироваться</a>
+                    <a class="nav-button" href="{% url 'index' %}">Корзина</a>
                 </li>
             {% endif %}
         </ul>
     </nav>
 </div>
-        <hr>
+<div class="nav-brands"> 
+    <nav>
+        <ul class="nav">
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Adidas</a>
+            </li>
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Nike</a>
+            </li>
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Jordan</a>
+            </li>
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Newbalance</a>
+            </li>
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Reebok</a>
+            </li>
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Vans</a>
+            </li>
+            <li class="nav-brands">
+                <a class="nav-link" href="{% url 'index' %}">Converse</a>
+            </li>
+           
+        </ul>
+    </nav>
+</div>
+        <hr class="Nav-hr">
         {% block script %}
         {% endblock %}
         {% block body %}
