@@ -63,13 +63,7 @@ function clear_slider(element) {
     el.style.display = 'block';
     el.style.transition = `opacity 4000ms`;
 
-    setTimeout(() => {
-    el.style.opacity = 0.5;},
-     4);
     document.getElementById(element).innerHTML = ''
-    setTimeout(() => {
-    el.style.opacity = 1;},
-     4);
 }
 
 // Shows or hides slider buttons
