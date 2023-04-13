@@ -55,7 +55,7 @@ function slide(button_id, destination) {
 // Clear slider
 function clear_slider(element) {
     el = document.getElementById(element)
-    el.style.opacity = 0;
+    el.style.opacity = 1;
     el.style.display = 'block';
     el.style.transition = `opacity 1000ms`;
     el.style.opacity = 0;
