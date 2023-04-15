@@ -173,12 +173,7 @@ div>.sales-product>div>p {
 
 }
 
-/*
-.smaller-sales-products>button {
-    display: inline-block !important;
 
-}
-*/
 .smaller-sales-products>button#slide-left {
     float: left;
     margin-top: 100px;
