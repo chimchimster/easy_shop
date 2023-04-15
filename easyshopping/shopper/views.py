@@ -21,14 +21,14 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['is_hit'] = Products.objects.select_related().values(
-            'productsdescription__p_name',
-            'productsdescription__p_images',
-        ).filter(productsdescription__p_is_hit=True)
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+        ).filter(productsdescription__product_is_hit=True)
 
         context['is_sale'] = Products.objects.select_related().values(
-            'productsdescription__p_name',
-            'productsdescription__p_images',
-        ).filter(productsdescription__p_is_on_sale=True)
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+        ).filter(productsdescription__product_is_on_sale=True)
 
         return context
 
@@ -39,9 +39,9 @@ def sales_hits(request):
     end = int(request.GET.get('end') or start)
 
     query = Products.objects.select_related().values(
-            'productsdescription__p_name',
-            'productsdescription__p_images',
-        ).filter(productsdescription__p_is_hit=True).distinct()
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+        ).filter(productsdescription__product_is_hit=True).distinct()
 
     json_objects = simplejson.dumps([item for item in query])
 

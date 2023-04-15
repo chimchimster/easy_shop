@@ -43,7 +43,7 @@ function add_product(contents) {
     const product = document.createElement('div')
 
     product.className = 'sales-product'
-    product.innerHTML = `<div><p>${contents.productsdescription__p_name}</p><br><img src="media/${contents.productsdescription__p_images}"></div>`
+    product.innerHTML = `<div><p>${contents.productsdescription__product_name}</p><br><img src="media/${contents.productsdescription__product_images}"></div>`
 
     // Add product to DOM
     document.getElementById('sales-products').append(product);
