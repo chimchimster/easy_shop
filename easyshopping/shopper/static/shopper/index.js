@@ -31,6 +31,7 @@ function load(increment) {
         data.products.forEach(add_product);
         // Hiding and showing buttons automatically
         length = data.length;
+        console.log(length, start, end)
         show_hide_buttons(start, end, length)
     })
 }
@@ -70,16 +71,18 @@ function clear_slider(element) {
 function show_hide_buttons(start, end, length) {
     const left = document.getElementById('slide-left');
     const right = document.getElementById('slide-right');
-
+    console.log(left)
     if (start === 0) {
         left.style.display = 'none';
     } else {
-        left.style.display = 'block'
+        left.style.display = 'block';
+        left.style.display = 'inline-block ';
     }
 
     if (end === length) {
         right.style.display = 'none';
     } else {
         right.style.display = 'block';
+        right.style.display = 'inline-block';
     }
 }

@@ -143,6 +143,7 @@ div>.sales-product>div>img {
     height: 150px;
     border-radius: 15px;
     border: rgb(231, 231, 215) solid 1px;
+
 }
 
 div>.sales-product>div>p {
@@ -156,38 +157,35 @@ div>.sales-product>div>p {
     display: block;
     text-align: center;
     margin-top: 0px;
+
 }
 
 
-.smoller-sales-products {
+.smaller-sales-products {
     width: 860px;
     margin: auto;
   
 }
 
-.smoller-sales-products>div {
+.smaller-sales-products>div {
     display: inline-block;
     justify-content: center;
-    
 
 }
 
-.smoller-sales-products>button {
+/*
+.smaller-sales-products>button {
     display: inline-block !important;
 
 }
-
-.smoller-sales-products>button#slide-left {
+*/
+.smaller-sales-products>button#slide-left {
     float: left;
     margin-top: 100px;
-    
-    
-
-
 
 }
 
-.smoller-sales-products>button#slide-right {
+.smaller-sales-products>button#slide-right {
     float: right;
     margin-top: 100px;
     
