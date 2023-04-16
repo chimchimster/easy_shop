@@ -75,12 +75,15 @@ function add_product(contents, child_div_class_name, parent_div_class_name) {
     const product = document.createElement('div')
 
     product.className = child_div_class_name
-    product.innerHTML = `<div><img src="media/${contents.productsdescription__product_images}"><br><p><a href="product/${contents.slug}">${contents.productsdescription__product_name}</a></p><br>${contents.product_price}<br><button type='submit'></button></div>`
+
+    product.innerHTML = `<div class="row"><div class="col-md-3"><div class="product"><div class="image"><img src="media/${contents.productsdescription__product_images}" alt =" "></div><div class="info"><h3><a href="product/${contents.slug}">${contents.productsdescription__product_name}</a></h3><ul class="raiting"><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star-half"></ion-icon></li></ul><div class="info-price"><span class="price">${contents.product_price}<small>P</small></span><button class="add-to-cart"><ion-icon name="cart-outline"></ion-icon></button></div></div></div></div></div>`
+0
 
     // Add product to DOM
     document.getElementById(parent_div_class_name).append(product);
 }
-
+// `<div>
+//     <img src="media/${contents.productsdescription__product_images}"><br><p>${contents.productsdescription__product_name}</p><br>${contents.product_price}<br><button type='submit'></button></div>`
 // Links function to specific button
 function slide(button_id, destination) {
     document.getElementById(button_id).onclick = function() {
