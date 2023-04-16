@@ -69,10 +69,7 @@ def sales_hits(request):
             'productsdescription__product_name',
             'productsdescription__product_images',
             'product_price',
-<<<<<<< HEAD
             'slug',
-=======
->>>>>>> d86745b1b661f64c97b5f6de606fe012521ea5c0
         ).filter(productsdescription__product_is_hit=True).distinct()
 
     return query
@@ -86,10 +83,7 @@ def get_products(request):
         'productsdescription__product_name',
         'productsdescription__product_images',
         'product_price',
-<<<<<<< HEAD
         'slug',
-=======
->>>>>>> d86745b1b661f64c97b5f6de606fe012521ea5c0
     ).distinct()
 
     return query

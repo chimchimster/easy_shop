@@ -76,11 +76,8 @@ class Products(models.Model):
         verbose_name='Код товара',
     )
 
-<<<<<<< HEAD
+
     slug = models.SlugField(
-=======
-    product_slug = models.SlugField(
->>>>>>> d86745b1b661f64c97b5f6de606fe012521ea5c0
         max_length=100,
         null=True,
         blank=True,
