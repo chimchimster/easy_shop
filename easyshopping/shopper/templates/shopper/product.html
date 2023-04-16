@@ -1,0 +1,20 @@
+{% extends 'shopper/layout.html' %}
+
+
+{% block body %}
+
+{% for p in product %}
+
+    {{ p.productsdescription__product_name }}
+    {{ p.product_price }}
+    {{ p.product_quantity }}
+    {{ p.product_code }}
+    <img src="/media/{{ p.productsdescription__product_images }}">
+    {{ p.productsdescription__product_model }}
+    {{ productsdescription__product_size }}
+    {{ productsdescription__product_size }}
+    {{ productsdescription__product_other_attrs }}
+
+{% endfor %}
+
+{% endblock %}
