@@ -74,6 +74,13 @@ class Products(models.Model):
         verbose_name='Код товара',
     )
 
+    product_slug = models.SlugField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='Ссылка на товар'
+    )
+
     product_add_date = models.DateTimeField(
         auto_now_add=True,
         null=False,

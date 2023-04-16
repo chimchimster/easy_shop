@@ -8,7 +8,7 @@ let product_counter = 0;
 const slider_quantity = 4;
 
 // Quantity of all products to load
-const products_quantity = 2;
+const products_quantity = 20;
 
 // Right and left slides variables
 const right = 1;
@@ -75,12 +75,14 @@ function add_product(contents, child_div_class_name, parent_div_class_name) {
     const product = document.createElement('div')
 
     product.className = child_div_class_name
-    product.innerHTML = `<div><p>${contents.productsdescription__product_name}</p><br><img src="media/${contents.productsdescription__product_images}"></div>`
+    product.innerHTML = `<div class="row"><div class="col-md-3"><div class="product"><div class="image"><img src="media/${contents.productsdescription__product_images}" alt =" "></div><div class="info"><h3>${contents.productsdescription__product_name}</h3><ul class="raiting"><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star-half"></ion-icon></li></ul><div class="info-price"><span class="price">${contents.product_price}<small>P</small></span><button class="add-to-cart"><ion-icon name="cart-outline"></ion-icon></button></div></div></div></div></div>`
+    
 
     // Add product to DOM
     document.getElementById(parent_div_class_name).append(product);
 }
-
+// `<div>
+//     <img src="media/${contents.productsdescription__product_images}"><br><p>${contents.productsdescription__product_name}</p><br>${contents.product_price}<br><button type='submit'></button></div>`
 // Links function to specific button
 function slide(button_id, destination) {
     document.getElementById(button_id).onclick = function() {
