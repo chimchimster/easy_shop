@@ -78,6 +78,7 @@ def sales_hits(request):
     query = Products.objects.select_related().values(
             'productsdescription__product_name',
             'productsdescription__product_images',
+            'product_price',
         ).filter(productsdescription__product_is_hit=True).distinct()
 
     return query
@@ -90,6 +91,7 @@ def get_products(request):
     query = Products.objects.select_related().values(
         'productsdescription__product_name',
         'productsdescription__product_images',
+        'product_price',
     ).distinct()
 
     return query

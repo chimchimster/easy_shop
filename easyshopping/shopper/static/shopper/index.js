@@ -8,7 +8,7 @@ let product_counter = 0;
 const slider_quantity = 4;
 
 // Quantity of all products to load
-const products_quantity = 2;
+const products_quantity = 20;
 
 // Right and left slides variables
 const right = 1;
@@ -75,7 +75,7 @@ function add_product(contents, child_div_class_name, parent_div_class_name) {
     const product = document.createElement('div')
 
     product.className = child_div_class_name
-    product.innerHTML = `<div><p>${contents.productsdescription__product_name}</p><br><img src="media/${contents.productsdescription__product_images}"></div>`
+    product.innerHTML = `<div><img src="media/${contents.productsdescription__product_images}"><br><p>${contents.productsdescription__product_name}</p><br>${contents.product_price}</div>`
 
     // Add product to DOM
     document.getElementById(parent_div_class_name).append(product);
