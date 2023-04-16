@@ -75,7 +75,7 @@ function add_product(contents, child_div_class_name, parent_div_class_name) {
     const product = document.createElement('div')
 
     product.className = child_div_class_name
-    product.innerHTML = `<div><img src="media/${contents.productsdescription__product_images}"><br><p>${contents.productsdescription__product_name}</p><br>${contents.product_price}<br><button type='submit'></button></div>`
+    product.innerHTML = `<div><img src="media/${contents.productsdescription__product_images}"><br><p><a href="product/${contents.slug}">${contents.productsdescription__product_name}</a></p><br>${contents.product_price}<br><button type='submit'></button></div>`
 
     // Add product to DOM
     document.getElementById(parent_div_class_name).append(product);

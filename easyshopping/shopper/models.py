@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+
 
 class ShopperUser(AbstractUser):
     username = models.CharField(
@@ -74,7 +76,7 @@ class Products(models.Model):
         verbose_name='Код товара',
     )
 
-    product_slug = models.SlugField(
+    slug = models.SlugField(
         max_length=100,
         null=True,
         blank=True,
@@ -102,14 +104,16 @@ class Products(models.Model):
         verbose_name='Количество товара',
     )
 
+    def __str__(self):
+        return f'Товар *{self.product_name}*'
+
+    def get_absolut_url(self):
+        return reverse('product', kwargs={'product_slug': self.slug})
 
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         ordering = ['-product_add_date', 'product_quantity', 'product_price']
-
-    def __str__(self):
-        return f'Товар *{self.product_name}*'
 
 
 class ProductsTypes(models.Model):

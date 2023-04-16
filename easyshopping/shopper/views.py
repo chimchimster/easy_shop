@@ -20,16 +20,6 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['is_hit'] = Products.objects.select_related().values(
-            'productsdescription__product_name',
-            'productsdescription__product_images',
-        ).filter(productsdescription__product_is_hit=True)
-
-        context['is_sale'] = Products.objects.select_related().values(
-            'productsdescription__product_name',
-            'productsdescription__product_images',
-        ).filter(productsdescription__product_is_on_sale=True)
-
         return context
 
 
@@ -79,6 +69,7 @@ def sales_hits(request):
             'productsdescription__product_name',
             'productsdescription__product_images',
             'product_price',
+            'slug',
         ).filter(productsdescription__product_is_hit=True).distinct()
 
     return query
@@ -92,8 +83,44 @@ def get_products(request):
         'productsdescription__product_name',
         'productsdescription__product_images',
         'product_price',
+        'slug',
     ).distinct()
 
     return query
+
+
+class ProductCard(DetailView):
+    model = Products
+    template_name = 'shopper/product.html'
+    context_object_name = 'product'
+    slug_url_kwarg = 'product_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['product'] = self.get_queryset()
+
+        return context
+
+    def get_queryset(self):
+        return Products.objects.filter(slug=self.kwargs['product_slug']).select_related().values(
+            'product_price',
+            'product_quantity',
+            'product_code',
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+            'productsdescription__product_model',
+            'productsdescription__product_size',
+            'productsdescription__product_size',
+            'productsdescription__product_other_attrs',
+        )
+
+
+
+
+
+
+
+
 
 
