@@ -21,43 +21,79 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['is_hit'] = Products.objects.select_related().values(
-            'productsdescription__p_name',
-            'productsdescription__p_images',
-        ).filter(productsdescription__p_is_hit=True)
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+        ).filter(productsdescription__product_is_hit=True)
 
         context['is_sale'] = Products.objects.select_related().values(
-            'productsdescription__p_name',
-            'productsdescription__p_images',
-        ).filter(productsdescription__p_is_on_sale=True)
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+        ).filter(productsdescription__product_is_on_sale=True)
 
         return context
 
-def sales_hits(request):
-    """ API responsible for section of sales hits """
 
-    start = int(request.GET.get('start') or 0)
-    end = int(request.GET.get('end') or start)
+def response_api(func):
+    """ Renders JsonResponse objects. """
+
+    def wraps(*args, **kwargs):
+
+        # Retrieving request from args
+        request = args[0]
+
+        # Applying initial settings for lazy load
+        start = int(request.GET.get('start') or 0)
+        end = int(request.GET.get('end') or start)
+
+        # Applying SQL request
+        query = func(*args, **kwargs)
+
+        # Creating json data
+        json_objects = simplejson.dumps([item for item in query])
+
+        json_data = json.loads(json_objects)
+
+        # Creating list and fill it by objects
+        data = []
+        try:
+            for i in range(start, end):
+                data.append(json_data[i])
+        except IndexError as i:
+            print(i)
+
+        return JsonResponse(
+            {
+                'products': data,
+                'length': len(json_data),
+            },
+        )
+
+    return wraps
+
+
+@response_api
+def sales_hits(request):
+    """ Function responsible for section 'sales hits' """
 
     query = Products.objects.select_related().values(
-            'productsdescription__p_name',
-            'productsdescription__p_images',
-        ).filter(productsdescription__p_is_hit=True).distinct()
+            'productsdescription__product_name',
+            'productsdescription__product_images',
+        ).filter(productsdescription__product_is_hit=True).distinct()
 
-    json_objects = simplejson.dumps([item for item in query])
+    return query
 
-    json_data = json.loads(json_objects)
 
-    # Create list and fill it by objects
-    data = []
-    try:
-        for i in range(start, end):
-            data.append(json_data[i])
-    except IndexError:
-        pass
+@response_api
+def get_products(request):
+    """ Function responsible for section 'all products' """
 
-    return JsonResponse(
-        {
-            'products': data,
-            'length': len(json_data),
-         },
-    )
+    query = Products.objects.select_related().values(
+        'productsdescription__product_name',
+        'productsdescription__product_images',
+    ).distinct()
+
+    print(query)
+
+    return query
+
+

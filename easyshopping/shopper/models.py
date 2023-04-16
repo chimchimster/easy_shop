@@ -54,33 +54,41 @@ class ShopperUser(AbstractUser):
 
 
 class Products(models.Model):
-    p_id = models.IntegerField(
+    product_id = models.AutoField(
         primary_key=True,
-        verbose_name='ID товара'
+        verbose_name='ID товара',
+
     )
 
-    p_code = models.IntegerField(
+    product_name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=True,
+        verbose_name='Название товара',
+    )
+
+    product_code = models.IntegerField(
         default=0,
         null=False,
         blank=True,
         verbose_name='Код товара',
     )
 
-    p_add_date = models.DateTimeField(
+    product_add_date = models.DateTimeField(
         auto_now_add=True,
         null=False,
         blank=True,
         verbose_name='Время добавления товара',
     )
 
-    p_price = models.IntegerField(
+    product_price = models.IntegerField(
         default=0,
         null=False,
         blank=True,
         verbose_name='Цена товара',
     )
 
-    p_quantity = models.IntegerField(
+    product_quantity = models.IntegerField(
         default=0,
         null=False,
         blank=True,
@@ -91,11 +99,14 @@ class Products(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-        ordering = ['-p_add_date', 'p_quantity', 'p_price']
+        ordering = ['-product_add_date', 'product_quantity', 'product_price']
+
+    def __str__(self):
+        return f'Товар *{self.product_name}*'
 
 
 class ProductsTypes(models.Model):
-    p_type = models.IntegerField(
+    product_type = models.AutoField(
         primary_key=True,
         verbose_name='Тип товара'
     )
@@ -110,71 +121,75 @@ class ProductsTypes(models.Model):
     class Meta:
         verbose_name = 'Тип товара'
         verbose_name_plural = 'Тип товаров'
-        ordering = ['p_type']
+        ordering = ['product_type']
+
+    def __str__(self):
+        return f'{self.type_name}'
 
 
 class ProductsDescription(models.Model):
-    p_desc_id = models.IntegerField(
+    product_desc_id = models.AutoField(
         primary_key=True,
         verbose_name='ID товара'
     )
 
-    p_id = models.ForeignKey(
+    product_id = models.ForeignKey(
         Products,
         unique=True,
         on_delete=models.PROTECT
     )
 
-    p_name = models.CharField(
-        max_length=100,
-        null=False,
-        blank=True,
-        verbose_name='Название товара',
-    )
-
-    p_images = models.ImageField(
+    product_images = models.ImageField(
         upload_to='images/%Y/%m/%d',
         null=False,
         blank=True,
         verbose_name='Изображение товара',
     )
 
-    p_model = models.CharField(
+    product_name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=True,
+        verbose_name='Название товара',
+    )
+
+    product_model = models.CharField(
         max_length=100,
         null=True,
         blank=True,
         verbose_name='Марка товара',
     )
 
-    p_type = models.ForeignKey(
+    product_type = models.ForeignKey(
         ProductsTypes,
         null=True,
         blank=True,
         on_delete=models.PROTECT,
+        verbose_name='Тип товара',
     )
 
-    p_size = models.CharField(
+    product_size = models.CharField(
         max_length=100,
         null=True,
         blank=True,
         verbose_name='Размер обуви',
     )
 
-    p_other_attrs = models.CharField(
+    product_other_attrs = models.CharField(
         max_length=100,
         null=True,
         blank=True,
         verbose_name='Дополнительные аттрибуты',
     )
 
-    p_is_hit = models.BooleanField(
+    product_is_hit = models.BooleanField(
         default=False,
         null=True,
         blank=True,
         verbose_name='Хит продаж',
     )
 
-    p_is_on_sale = models.BooleanField(
+    product_is_on_sale = models.BooleanField(
         default=False,
         null=True,
         blank=True,
@@ -184,30 +199,32 @@ class ProductsDescription(models.Model):
     class Meta:
         verbose_name = 'Описание товара'
         verbose_name_plural = 'Описание товаров'
-        ordering = ['p_desc_id']
+        ordering = ['product_desc_id']
 
+    def __str__(self):
+        return f'{self.product_name}'
 
 class Orders(models.Model):
-    o_id = models.IntegerField(
+    order_id = models.AutoField(
         primary_key=True,
         verbose_name='ID заказа',
     )
 
-    o_name = models.CharField(
+    order_name = models.CharField(
         max_length=100,
         null=False,
         blank=True,
         verbose_name='ФИО клиента',
     )
 
-    o_mail = models.CharField(
+    order_mail = models.CharField(
         max_length=100,
         null=False,
         blank=True,
         verbose_name='Электронная почта клиента',
     )
 
-    o_phone = models.CharField(
+    order_phone = models.CharField(
         max_length=100,
         null=False,
         blank=True,
@@ -221,7 +238,7 @@ class Orders(models.Model):
         verbose_name='Тип доставки',
     )
 
-    o_create_date = models.DateTimeField(
+    order_create_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата создания заявки',
     )
@@ -229,22 +246,23 @@ class Orders(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
-        ordering = ['-o_create_date']
+        ordering = ['-order_create_date']
 
 
 class OrderItems(models.Model):
-    oi_id = models.IntegerField(
+    order_item_id = models.AutoField(
         primary_key=True,
+        verbose_name='ID заказа',
     )
 
-    o_id = models.ForeignKey(
+    order_id = models.ForeignKey(
         Orders,
         null=False,
         blank=True,
         on_delete=models.PROTECT,
     )
 
-    p_id = models.ForeignKey(
+    product_id = models.ForeignKey(
         Products,
         null=False,
         blank=True,
@@ -256,12 +274,12 @@ class OrderItems(models.Model):
         verbose_name_plural = 'Связь заказы - товары'
 
 class OrdersStatus(models.Model):
-    os_id = models.IntegerField(
+    order_status_id = models.AutoField(
         primary_key=True,
         verbose_name='ID статуса заказа',
     )
 
-    o_id = models.ForeignKey(
+    order_id = models.ForeignKey(
         Orders,
         null=True,
         unique=True,
@@ -269,7 +287,7 @@ class OrdersStatus(models.Model):
         on_delete=models.PROTECT,
     )
 
-    o_status = models.CharField(
+    order_status = models.CharField(
         max_length=100,
         choices=[
             ('Заказ создан', 'Заказ создан'),
@@ -280,7 +298,7 @@ class OrdersStatus(models.Model):
         verbose_name='Статус заказа'
     )
 
-    os_last_update = models.DateTimeField(
+    order_status_last_update = models.DateTimeField(
         auto_now=True,
         verbose_name='Отслеживание изменения статуса заказа'
     )
@@ -288,4 +306,4 @@ class OrdersStatus(models.Model):
     class Meta:
         verbose_name = 'Статус заказа'
         verbose_name_plural = 'Статус заказов'
-        ordering = ['os_last_update']
+        ordering = ['order_status_last_update']
