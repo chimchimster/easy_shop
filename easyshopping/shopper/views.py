@@ -107,11 +107,16 @@ class ProductCard(DetailView):
             'product_price',
             'product_quantity',
             'product_code',
+            'product_rating',
             'productsdescription__product_name',
             'productsdescription__product_images',
             'productsdescription__product_model',
             'productsdescription__product_size',
-            'productsdescription__product_size',
+            'productsdescription__seasons',
+            'productsdescription__manufacturer',
+            'productsdescription__main_material',
+            'productsdescription__sole_thickness',
+            'productsdescription__type_of_sole',
             'productsdescription__product_other_attrs',
         )
 

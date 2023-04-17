@@ -8,7 +8,7 @@ let product_counter = 0;
 const slider_quantity = 4;
 
 // Quantity of all products to load
-const products_quantity = 20;
+const products_quantity = 4;
 
 // Right and left slides variables
 const right = 1;

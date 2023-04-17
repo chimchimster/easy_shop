@@ -9,11 +9,17 @@
     {{ p.product_price }}
     {{ p.product_quantity }}
     {{ p.product_code }}
+    {{ p.product_rating }}
     <img src="/media/{{ p.productsdescription__product_images }}">
     {{ p.productsdescription__product_model }}
-    {{ productsdescription__product_size }}
-    {{ productsdescription__product_size }}
-    {{ productsdescription__product_other_attrs }}
+    {{ p.productsdescription__product_size }}
+    {{ p.productsdescription__product_size }}
+    {{ p.productsdescription__seasons }}
+    {{ p.productsdescription__manufacturer }}
+    {{ p.productsdescription__main_material }}
+    {{ p.productsdescription__sole_thickness }}
+    {{ p.productsdescription__type_of_sole }}
+    {{ p.productsdescription__product_other_attrs }}
 
 {% endfor %}
 
