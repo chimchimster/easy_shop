@@ -67,7 +67,7 @@ def sales_hits(request):
 
     query = Products.objects.select_related().values(
             'productsdescription__product_name',
-            'productsdescription__product_images',
+            'imageproduct__image',
             'product_price',
             'slug',
         ).filter(productsdescription__product_is_hit=True).distinct()
@@ -81,13 +81,31 @@ def get_products(request):
 
     query = Products.objects.select_related().values(
         'productsdescription__product_name',
-        'productsdescription__product_images',
+        'imageproduct__image',
         'product_price',
         'slug',
     ).distinct()
 
     return query
 
+
+def get_pictures(request, product_slug):
+    """ Function responsible for loading pictures
+        of particular product. """
+
+    slug = request.__dict__['path_info'].lstrip('/product_images/')
+
+    query = Products.objects.filter(slug=slug).select_related().values(
+        'imageproduct__image',
+    )
+
+    json_objects = simplejson.dumps([item for item in query])
+
+    json_data = json.loads(json_objects)
+
+    return JsonResponse(
+        {'images': json_data}
+    )
 
 class ProductCard(DetailView):
     model = Products
@@ -109,7 +127,6 @@ class ProductCard(DetailView):
             'product_code',
             'product_rating',
             'productsdescription__product_name',
-            'productsdescription__product_images',
             'productsdescription__product_model',
             'productsdescription__product_size',
             'productsdescription__seasons',

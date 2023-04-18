@@ -1,15 +1,12 @@
 {% extends 'shopper/layout.html' %}
-
+{% load static %}
 
 {% block body %}
 
 {% for p in product %}
-<div class="main-content-conteiner">
+<div class="main-content-conteiner" xmlns="">
     <div class="content-container">
-        <div class="carousel-and-info">
-            <div class="carousel-block">
-                <img src="/media/{{ p.productsdescription__product_images }}" width="500px" height="500px">
-            </div>
+        <div id="carousel-and-info">
             <div class="product-info-block">
                 <ul class="prudct-information-nav">
                     <li>{{ p.productsdescription__type_of_sole }}</li>
@@ -69,7 +66,14 @@
     </div>
 </div>
 
+<div id="product_img1"></div>
 
 {% endfor %}
 
+{% endblock %}
+
+{% block script %}
+<div>
+    <script src="{% static 'shopper/product.js' %}"></script>
+</div>
 {% endblock %}

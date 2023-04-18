@@ -1,6 +1,6 @@
 from django.contrib.auth.admin import UserAdmin
 
-from .models import ShopperUser, OrdersStatus, OrderItems, Orders, ProductsDescription, ProductsTypes, Products, Category, Comment
+from .models import ShopperUser, OrdersStatus, OrderItems, Orders, ProductsDescription, ProductsTypes, Products, Category, Comment, ImageProduct
 from .forms import UserCreationForm, RegistrationForm
 
 from django.contrib import admin
@@ -24,3 +24,4 @@ admin.site.register(ProductsTypes)
 admin.site.register(Products)
 admin.site.register(Category)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(ImageProduct)

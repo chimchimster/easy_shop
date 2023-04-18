@@ -160,13 +160,6 @@ class ProductsDescription(models.Model):
         on_delete=models.PROTECT
     )
 
-    product_images = models.ImageField(
-        upload_to='images/%Y/%m/%d',
-        null=False,
-        blank=True,
-        verbose_name='Изображение товара',
-    )
-
     product_name = models.CharField(
         max_length=100,
         null=False,
@@ -442,3 +435,36 @@ class Comment(models.Model):
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
         ordering = ['-date_edited', '-date_created']
+
+
+class ImageProduct(models.Model):
+    img_name = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='Название изображения'
+    )
+
+    product = models.ForeignKey(
+        Products,
+        on_delete=models.PROTECT,
+    )
+
+    image = models.ImageField(
+        upload_to='images/%Y/%m/%d',
+        null=True,
+        blank=True,
+        verbose_name='Ссылка на изображение',
+    )
+
+    default = models.BooleanField(
+        default=False,
+        verbose_name='Отображается на главной',
+    )
+
+    def __str__(self):
+        return f'Изображение {self.img_name} товара {self.product}'
+
+    class Meta:
+        verbose_name = 'Изображение товара'
+        verbose_name_plural = 'Изображения товара'

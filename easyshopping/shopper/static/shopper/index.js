@@ -76,7 +76,7 @@ function add_product(contents, child_div_class_name, parent_div_class_name) {
 
     product.className = child_div_class_name
 
-    product.innerHTML = `<div class="row"><div class="col-md-3"><div class="product"><div class="image"><img src="media/${contents.productsdescription__product_images}" alt =" "></div><div class="info"><h3><a href="product/${contents.slug}">${contents.productsdescription__product_name}</a></h3><ul class="raiting"><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star-half"></ion-icon></li></ul><div class="info-price"><span class="price">${contents.product_price}<small>P</small></span><button class="add-to-cart"><ion-icon name="cart-outline"></ion-icon></button></div></div></div></div></div>`
+    product.innerHTML = `<div class="row"><div class="col-md-3"><div class="product"><div class="image"><img src="media/${contents.imageproduct__image}" alt =" "></div><div class="info"><h3><a href="product/${contents.slug}">${contents.productsdescription__product_name}</a></h3><ul class="raiting"><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star-half"></ion-icon></li></ul><div class="info-price"><span class="price">${contents.product_price}<small>P</small></span><button class="add-to-cart"><ion-icon name="cart-outline"></ion-icon></button></div></div></div></div></div>`
 
     // Add product to DOM
     document.getElementById(parent_div_class_name).append(product);
@@ -119,3 +119,5 @@ function show_hide_buttons(start, end, length) {
         right.style.display = 'inline-block';
     }
 }
+
+
