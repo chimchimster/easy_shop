@@ -69,7 +69,7 @@ function load_slider(increment) {
 }
 
 // Add unique product to DOM
-function add_product(contents, child_div_class_name, parent_div_class_name) {
+function add_product(contents, child_div_class_name, parent_id_name) {
 
     // Creating element to store values
     const product = document.createElement('div')
@@ -79,7 +79,7 @@ function add_product(contents, child_div_class_name, parent_div_class_name) {
     product.innerHTML = `<div class="row"><div class="col-md-3"><div class="product"><div class="image"><img src="media/${contents.imageproduct__image}" alt =" "></div><div class="info"><h3><a href="product/${contents.slug}">${contents.productsdescription__product_name}</a></h3><ul class="raiting"><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star"></ion-icon></li><li><ion-icon name="star-half"></ion-icon></li></ul><div class="info-price"><span class="price">${contents.product_price}<small>P</small></span><button class="add-to-cart"><ion-icon name="cart-outline"></ion-icon></button></div></div></div></div></div>`
 
     // Add product to DOM
-    document.getElementById(parent_div_class_name).append(product);
+    document.getElementById(parent_id_name).append(product);
 }
 
 // Links function to specific button

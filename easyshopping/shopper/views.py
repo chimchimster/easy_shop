@@ -97,6 +97,7 @@ def get_pictures(request, product_slug):
 
     query = Products.objects.filter(slug=slug).select_related().values(
         'imageproduct__image',
+        'imageproduct__default',
     )
 
     json_objects = simplejson.dumps([item for item in query])
