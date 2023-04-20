@@ -10,15 +10,15 @@
             <div class="product-info-block">
                 <ul class="prudct-information-nav">
                     <li>{{ p.productsdescription__type_of_sole }}</li>
-                    </li>{{ p.productsdescription__product_name }}</li>
+                    <li>{{ p.productsdescription__product_name }}</li>
                     <li>{{ p.productsdescription__product_model }}</li>
                     <li>{{ p.productsdescription__product_other_attrs }}</li>
                 </ul>
                 <div class="product-color">
-                    <p>Цвет: Color</p>
+                    <p>Цвет: Белый</p>
                 </div>
                 <div class="product-raiting">
-                    <ul class="raiting">
+                    <ul class="raiting main-raiting">
                         <li><ion-icon name="star"></ion-icon></li>
                         <li><ion-icon name="star"></ion-icon></li>
                         <li><ion-icon name="star"></ion-icon></li>
@@ -26,45 +26,63 @@
                         <li><ion-icon name="star-half"></ion-icon></li>
                     </ul>
                 </div>
-                <div class="product-price"><span>Price: </span>{{ p.product_price }}</div>
+                <div class="product-price">{{ p.product_price }}<small>₽</small></div>
                 <div class="empty"></div>
                 <ul id="images-links-to-other-goods-colors" class="images-links-to-other-goods_NAV">
                     <li></li>
-                    </li></li>
+                    </li>
+                    </li>
                     <li></li>
                     <li></li>
                 </ul>
                 <div class="size-of-product">
-                    <span>Size: </span>{{ p.productsdescription__product_size }} <span>Таблица размеров</span>
+                    <label>
+                        <select class="size-bar" name="size-choosing" required="required">
+                            <option value="">Выберите размер (eu)</option>
+                            <option value="1">38</option>
+                            <option value="2">39</option>
+                            <option value="3">40</option>
+                            <option value="4">41</option>
+                            <option value="5">42</option>
+                            <option value="6">43</option>
+                            <option value="7">44</option>
+                            <option value="8">45</option>
+                        </select>
+                    </label>
+
+                    <span><a href="/">Таблица размеров</a></span>
                 </div>
-                <select class="size-bar" name="size-choosing" required="required">
-                    <option value="">Выберите размер</option>
-                    <option value="1">38</option>
-                    <option value="2">39</option>
-                    <option value="3">40</option>
-                    <option value="4">41</option>
-                    <option value="5">42</option>
-                    <option value="6">43</option>
-                  </select>
-                  <div class="buy-button-container">
-                <button class="buy-button">press if u wanna die</button>
-                  </div>
+                <div class="buy-button-container">
+                    <button class="buy-button">Buy</button>
+                </div>
             </div>
         </div>
-        <div class="conteiner-adittional-product-info">
-            <ul class="nav-addittional-product-info">
-                <li><span>season...............</span>{{ p.productsdescription__seasons }}</li>
-                <li><span>Main_material...............</span>{{ p.productsdescription__main_material }}</li>
-                <li><span>Code...............</span>{{ p.product_code }}</li>
-            </ul>
-            <ul class="nav-addittional-product-info">
-                <li><span>Manufacturer...............</span>{{ p.productsdescription__manufacturer }}</li>
-                <li><span>Quantity...............</span>{{ p.product_quantity }}</li>
-                <li><span>Solethickness...............</span>{{ p.productsdescription__sole_thickness }}</li>
-            </ul>
-        </div>
+
+
     </div>
 </div>
+<hr class="product-page-hr-line">
+<div class="bottom-main-content-conteiner">
+    <div class="conteiner-adittional-product-info">
+        <ul class="nav-addittional-product-info">
+            <li><span>Сезон: </span><span>{{ p.productsdescription__seasons }}</span></li>
+            <li><span>Основной материал: </span><span>{{ p.productsdescription__main_material }}</span></li>
+            <li><span>Артикул: </span><span>{{ p.product_code }}</span></li>
+        </ul>
+        <ul class="nav-addittional-product-info">
+            <li><span>Производитель: </span><span>{{ p.productsdescription__manufacturer }}</span></li>
+            <li><span>Количество: </span><span>{{ p.product_quantity }}</span></li>
+            <li><span>Толщина подошвы: </span><span>{{ p.productsdescription__sole_thickness }}</span></li>
+        </ul>
+    </div>
+    <form action="textarea1" method="post">
+        <p><b>Оставить отзыв:</b></p>
+        <p><textarea rows="4" cols="50" name="text"></textarea></p>
+        <p><input type="submit" value="Отправить"></p>
+    </form>
+</div>
+
+
 
 <div id="product_img1"></div>
 
@@ -76,4 +94,20 @@
 <div>
     <script src="{% static 'shopper/product.js' %}"></script>
 </div>
+<footer>
+    <div class="footer-content">
+        <h3>Shop Name</h3>
+
+        <ul class="socials">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+        </ul>
+    </div>
+    <div class="footer-bottom">
+        <p>copyright &copy;2023 chimchimster. designed by <span>Mc_gvozdeff</span></p>
+    </div>
+</footer>
 {% endblock %}
