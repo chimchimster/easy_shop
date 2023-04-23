@@ -14,6 +14,7 @@ const products_quantity = 4;
 const right = 1;
 const left = -1;
 
+
 // When DOM is loaded let's generate sales hits
 document.addEventListener('DOMContentLoaded', function() {
     load_slider(0)
@@ -119,5 +120,6 @@ function show_hide_buttons(start, end, length) {
         right.style.display = 'inline-block';
     }
 }
+
 
 

@@ -4,9 +4,14 @@
 {% block body %}
 
 {% for p in product %}
+
 <div class="main-content-conteiner" xmlns="">
     <div class="content-container">
+        
         <div id="carousel-and-info">
+            <div>
+                <script src="{% static 'shopper/product.js' %}"></script>
+            </div>
             <div class="product-info-block">
                 <ul class="prudct-information-nav">
                     <li>{{ p.productsdescription__type_of_sole }}</li>
@@ -84,16 +89,14 @@
 
 
 
-<div id="product_img1"></div>
+
 
 {% endfor %}
 
 {% endblock %}
 
 {% block script %}
-<div>
-    <script src="{% static 'shopper/product.js' %}"></script>
-</div>
+
 <footer>
     <div class="footer-content">
         <h3>Shop Name</h3>
