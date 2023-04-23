@@ -2,10 +2,7 @@
 // Loading DOM elements
 document.addEventListener('DOMContentLoaded', function() {
     load_pictures();
-// FROM HERE!!!!
-    console.log(document.querySelectorAll('.small-images'))
-    document.querySelectorAll('.small-images').addEventListener('click', () => click_image());
-
+    apply_onclick();
 })
 
 // Loading bunch of pictures connected with product
@@ -45,14 +42,10 @@ function add_image(content, child_div_class_name, parent_id_name, element_tag) {
     const image = document.createElement(element_tag);
     image.className = child_div_class_name;
 
+    image.addEventListener('click', click_image)
     image.innerHTML = `<img src='${img_src()}/media/${content.imageproduct__image}'>`;
-
     document.getElementById(parent_id_name).append(image);
 
-}
-
-function click_image() {
-    add_image({'dsfs': 'sdfsd'}, 'div_n',  'carousel-and-info', 'div')
 }
 
 // Generates right way for img src tag
@@ -62,4 +55,11 @@ function img_src() {
     let root_path = res[0];
 
     return root_path
+}
+
+// Adds event to image
+function click_image() {
+    let main_image = document.querySelector('.carousel-block')
+    console.log(main_image)
+
 }
