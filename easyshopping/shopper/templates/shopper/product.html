@@ -9,9 +9,7 @@
     <div class="content-container">
         
         <div id="carousel-and-info">
-            <div>
-                <script src="{% static 'shopper/product.js' %}"></script>
-            </div>
+            
             <div class="product-info-block">
                 <ul class="prudct-information-nav">
                     <li>{{ p.productsdescription__type_of_sole }}</li>
@@ -80,11 +78,14 @@
             <li><span>Толщина подошвы: </span><span>{{ p.productsdescription__sole_thickness }}</span></li>
         </ul>
     </div>
-    <form action="textarea1" method="post">
-        <p><b>Оставить отзыв:</b></p>
-        <p><textarea rows="4" cols="50" name="text"></textarea></p>
-        <p><input type="submit" value="Отправить"></p>
-    </form>
+    <h4 class="text-areah4">Оставить отзыв:</h4>
+    <div class="text-area-conteiner">
+      
+        <form action="textarea" method="post">
+            <p><textarea  rows="4" cols="50" name="text"></textarea></p>
+            <p><input class="text-area-button" type="submit" value="Отправить"></p>
+        </form>
+    </div>
 </div>
 
 
@@ -92,7 +93,9 @@
 
 
 {% endfor %}
-
+<div>
+    <script src="{% static 'shopper/product.js' %}"></script>
+</div>
 {% endblock %}
 
 {% block script %}

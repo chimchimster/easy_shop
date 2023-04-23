@@ -134,6 +134,7 @@ body {
   display: inline-block;
   text-align: center;
   width: 100%;
+  height: 441px;
 
 }
 
@@ -384,7 +385,7 @@ div#all-products {
 }
 
 .empty {
-  height: 30%;
+  height: 20%;
 }
 
 /* small images conteiner */
@@ -542,17 +543,56 @@ label:before {
   width: 250px;
   color: rgba(0, 0, 0, 0.415);
 }
+/* Comments section */
+p>textarea {
+  padding: 6px 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+  outline: none;
+}
+.text-area-conteiner {
+  display: inline-block;
+  width: fit-content;
+  text-align: end;
+}
+.text-areah4 {
+  padding-left: 3px;
+  font-weight: 500;
+}
+.text-area-button {
+  padding: 3px 5px;
+ cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 3px #999;
+}
 
+.text-area-button:hover {
+  background-color: #3e8e41
+}
+
+.text-area-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 2px #666;
+  transform: translateY(1px);
+}
 /* Footer */
 footer {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #F4F4EF;
+  background: white;
   height: auto;
   width: 100vw;
-  padding-top: 40px;
+  padding-top: 20px;
   color: black;
   margin-top: 10px;
 }
@@ -567,10 +607,10 @@ footer {
 }
 
 .footer-content h3 {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight: 400;
   text-transform: capitalize;
-  line-height: 1.8rem;
+  line-height: 1.3rem;
 }
 
 .socials {
@@ -578,11 +618,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem 0 1rem 0;
+  margin: 0.7rem 0 0.7rem 0;
 }
 
 .socials li {
-  margin: 0 10px;
+  margin: 0 7px;
 }
 
 .socials a {
@@ -591,7 +631,7 @@ footer {
 }
 
 .socials a i {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   transition: color .4s ease;
 
 }
@@ -601,9 +641,9 @@ footer {
 }
 
 .footer-bottom {
-  background: #F4F4EF;
+  background: white;
   width: 100vw;
-  padding: 20px 0;
+  padding: 10px 0;
   text-align: center;
 }
 
