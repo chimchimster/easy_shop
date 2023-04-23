@@ -385,7 +385,7 @@ div#all-products {
 }
 
 .empty {
-  height: 20%;
+  height: 15%;
 }
 
 /* small images conteiner */
@@ -405,7 +405,14 @@ div#all-products {
   height: 100px;
   width: auto;
   text-align: center;
-
+margin-bottom: 15px;
+margin-right: 5px;
+}
+.images-links-to-other-goods_NAV>.small-images>img:hover {
+ 
+  border: 1px solid #3e8e41;
+  cursor: pointer;
+  border-radius:  5px;
 }
 
 .product-price {
