@@ -42,9 +42,12 @@ function add_image(content, child_div_class_name, parent_id_name, element_tag) {
     const image = document.createElement(element_tag);
     image.className = child_div_class_name;
 
-    image.addEventListener('click', click_image)
     image.innerHTML = `<img src='${img_src()}/media/${content.imageproduct__image}'>`;
+
     document.getElementById(parent_id_name).append(image);
+    if (element_tag === 'li') {
+        image.addEventListener('click', () => click_image(image.innerHTML, image))
+    }
 
 }
 
@@ -58,8 +61,12 @@ function img_src() {
 }
 
 // Adds event to image
-function click_image() {
-    let main_image = document.querySelector('.carousel-block')
-    console.log(main_image)
+function click_image(image_html, image) {
+    let main_image = document.querySelector('.carousel-block');
+
+    image.innerHTML = main_image.innerHTML;
+    main_image.innerHTML = image_html;
+
+
 
 }
