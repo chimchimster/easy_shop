@@ -20,7 +20,7 @@ function load_pictures() {
                 break;
             }
         }
-        add_image(main_picture, 'carousel-block', 'carousel-and-info', 'div')
+        add_image(main_picture, 'carousel-block', 'carousel-and-info-image', 'div')
         api_array.forEach((item) => add_image(item, 'small-images','images-links-to-other-goods-colors', 'li'));
      });
 
@@ -66,7 +66,5 @@ function click_image(image_html, image) {
 
     image.innerHTML = main_image.innerHTML;
     main_image.innerHTML = image_html;
-
-
 
 }
