@@ -80,9 +80,12 @@
     </div>
     <h4 class="text-areah4">Оставить отзыв:</h4>
     <div class="text-area-conteiner">
-      
-        <form action="textarea" method="post">
-            <p><textarea  rows="4" cols="50" name="text"></textarea></p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for c in comment_form %}
+                {{ c }}
+            {% endfor %}
             <p><input class="text-area-button" type="submit" value="Отправить"></p>
         </form>
     </div>
@@ -90,7 +93,9 @@
 
 
 
-
+{% for c in comments %}
+    {{ c }}
+{% endfor %}
 
 {% endfor %}
 <div>

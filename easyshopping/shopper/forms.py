@@ -18,3 +18,10 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class ReviewFrom(forms.Form):
+    body = forms.CharField(label='Отзыв', widget=forms.TextInput())
+
+    class Meta:
+        fields = ('body', )

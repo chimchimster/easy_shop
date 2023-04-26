@@ -5,13 +5,15 @@ from django.contrib.auth import logout
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic.edit import FormMixin
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .models import ProductsDescription, Products
+from .models import ProductsDescription, Products, Comment
+from .forms import ReviewFrom
 
 
 class IndexView(TemplateView):
@@ -108,8 +110,9 @@ def get_pictures(request, product_slug):
         {'images': json_data}
     )
 
-class ProductCard(DetailView):
+class ProductCard(FormMixin, DetailView):
     model = Products
+    form_class = ReviewFrom
     template_name = 'shopper/product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
@@ -118,6 +121,12 @@ class ProductCard(DetailView):
         context = super().get_context_data(**kwargs)
 
         context['product'] = self.get_queryset()
+
+        context['comment_form'] = ReviewFrom()
+
+        context['comments'] = Products.objects.filter(slug=self.kwargs['product_slug']).select_related().values(
+            'comment__content'
+        )
 
         return context
 
@@ -138,11 +147,27 @@ class ProductCard(DetailView):
             'productsdescription__product_other_attrs',
         )
 
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
 
+        if form.is_valid():
 
+            comment = Comment.objects.create(
+                title='',
+                content=form.cleaned_data['body'],
+                author_id=request.user,
+                product_id=Products.objects.filter(slug=self.kwargs['product_slug'])[0],
 
+            )
+            comment.save()
 
+            return HttpResponse('index')
 
+        return render(
+            request,
+            self.template_name,
+            {'comment_form': form}
+        )
 
 
 
