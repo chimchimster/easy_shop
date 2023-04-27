@@ -1,3 +1,9 @@
+// Define comment counter
+let comment_counter = 0
+
+// Define comment quantity
+let comment_quantity = 100
+
 
 // Loading DOM elements
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,11 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Loading bunch of comments connected with product
 function load_comments() {
-    fetch(`/product_comments/${get_slug()}`)
+    let start = comment_counter;
+    let end = start + comment_quantity;
+    comment_counter = end + 1;
+
+    fetch(`/product_comments/${get_slug()}?start=${start}&end=${end}`)
     .then(response => response.json())
     .then(data => {
-        data.comments.forEach((item) => )
+        console.log(data.products)
+        data.products.forEach((item) => add_item(item.comment__content, 'unique-comment', 'all-comments', 'div', 'comment'))
     })
+
 }
 
 
@@ -24,7 +36,7 @@ function load_pictures() {
     fetch(`/product_images/${get_slug()}`)
     .then(response => response.json())
      .then(data => {
-        let api_array = data.images;
+        let api_array = data.items;
         for (let i = 0; i < api_array.length; i++) {
             if (api_array[i]['imageproduct__default'] === true) {
                 main_picture = api_array[i];
@@ -32,8 +44,8 @@ function load_pictures() {
                 break;
             }
         }
-        add_image(main_picture, 'carousel-block', 'carousel-and-info-image', 'div')
-        api_array.forEach((item) => add_image(item, 'small-images','images-links-to-other-goods-colors', 'li'));
+        add_item(main_picture.imageproduct__image, 'carousel-block', 'carousel-and-info-image', 'div', 'image')
+        api_array.forEach((item) => add_item(item.imageproduct__image,  'small-images','images-links-to-other-goods-colors', 'li', 'image'));
      });
 
 }
@@ -49,16 +61,19 @@ function get_slug() {
 }
 
 // Adding image to DOM
-function add_image(content, child_div_class_name, parent_id_name, element_tag) {
+function add_item(content, child_div_class_name, parent_id_name, element_tag, type) {
     // Creating new div
-    const image = document.createElement(element_tag);
-    image.className = child_div_class_name;
+    const item = document.createElement(element_tag);
+    item.className = child_div_class_name;
 
-    image.innerHTML = `<img src='${img_src()}/media/${content.imageproduct__image}'>`;
-
-    document.getElementById(parent_id_name).append(image);
+    if (type === 'image') {
+        item.innerHTML = `<img src='${img_src()}/media/${content}'>`;
+    } else {
+        item.innerHTML = `<p>${content}</p>`
+    }
+    document.getElementById(parent_id_name).append(item);
     if (element_tag === 'li') {
-        image.addEventListener('click', () => click_image(image.innerHTML, image))
+        item.addEventListener('click', () => click_image(item.innerHTML, item))
     }
 
 }

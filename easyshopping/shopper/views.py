@@ -6,7 +6,7 @@ from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.shortcuts import render
@@ -25,7 +25,7 @@ class IndexView(TemplateView):
         return context
 
 
-def response_api_images(func):
+def response_api(func):
     """ Renders JsonResponse objects. """
 
     def wraps(*args, **kwargs):
@@ -62,12 +62,29 @@ def response_api_images(func):
 
     return wraps
 
+def response_api_card_item(func):
 
-@response_api_images
+    def wraps(*args, **kwargs):
+
+        query = func(*args, **kwargs)
+
+        json_objects = simplejson.dumps([item for item in query])
+
+        json_data = json.loads(json_objects)
+
+        return JsonResponse(
+            {'items': json_data}
+        )
+
+    return wraps
+
+
+
+@response_api
 def sales_hits(request):
     """ Function responsible for section 'sales hits'. """
 
-    query = Products.objects.select_related().values(
+    query = Products.objects.select_related().filter(imageproduct__default=True).values(
             'productsdescription__product_name',
             'imageproduct__image',
             'product_price',
@@ -77,11 +94,11 @@ def sales_hits(request):
     return query
 
 
-@response_api_images
+@response_api
 def get_products(request):
     """ Function responsible for section 'all products'. """
 
-    query = Products.objects.select_related().values(
+    query = Products.objects.select_related().filter(imageproduct__default=True).values(
         'productsdescription__product_name',
         'imageproduct__image',
         'product_price',
@@ -90,7 +107,7 @@ def get_products(request):
 
     return query
 
-
+@response_api_card_item
 def get_pictures(request, product_slug):
     """ Function responsible for loading pictures
         of particular product. """
@@ -102,15 +119,10 @@ def get_pictures(request, product_slug):
         'imageproduct__default',
     )
 
-    json_objects = simplejson.dumps([item for item in query])
-
-    json_data = json.loads(json_objects)
-
-    return JsonResponse(
-        {'images': json_data}
-    )
+    return query
 
 
+@response_api
 def get_comments(request, product_slug):
     """ Function responsible for 'comments' section. """
 
@@ -119,13 +131,8 @@ def get_comments(request, product_slug):
     query = Products.objects.filter(slug=slug).select_related().values(
         'comment__content',
     )
-    json_objects = simplejson.dumps([item for item in query])
 
-    json_data = json.loads(json_objects)
-
-    return JsonResponse(
-        {'comments': json_data}
-    )
+    return query
 
 
 class ProductCard(FormMixin, DetailView):
@@ -141,10 +148,6 @@ class ProductCard(FormMixin, DetailView):
         context['product'] = self.get_queryset()
 
         context['comment_form'] = ReviewFrom()
-
-        context['comments'] = Products.objects.filter(slug=self.kwargs['product_slug']).select_related().values(
-            'comment__content',
-        )
 
         return context
 
@@ -179,7 +182,7 @@ class ProductCard(FormMixin, DetailView):
             )
             comment.save()
 
-            return HttpResponse('index')
+            return HttpResponseRedirect('/product/' + self.kwargs['product_slug'])
 
         return render(
             request,
