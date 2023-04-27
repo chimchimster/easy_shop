@@ -1,6 +1,6 @@
 from django.templatetags.static import static
 from django.urls import path
-from .views import IndexView, sales_hits, get_products, get_pictures, ProductCard
+from .views import IndexView, sales_hits, get_products, get_pictures, get_comments, ProductCard
 
 urlpatterns = [
     path('',  IndexView.as_view(), name='index'),
@@ -9,5 +9,6 @@ urlpatterns = [
     # API routes
     path('sales_hits', sales_hits),
     path('all_products', get_products),
-    path('product_images/<slug:product_slug>', get_pictures)
+    path('product_images/<slug:product_slug>', get_pictures),
+    path('product_comments/<slug:product_slug>', get_comments),
 ]

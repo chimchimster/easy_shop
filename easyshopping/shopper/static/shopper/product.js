@@ -2,8 +2,20 @@
 // Loading DOM elements
 document.addEventListener('DOMContentLoaded', function() {
     load_pictures();
+    load_comments();
     apply_onclick();
 })
+
+
+// Loading bunch of comments connected with product
+function load_comments() {
+    fetch(`/product_comments/${get_slug()}`)
+    .then(response => response.json())
+    .then(data => {
+        data.comments.forEach((item) => )
+    })
+}
+
 
 // Loading bunch of pictures connected with product
 function load_pictures() {

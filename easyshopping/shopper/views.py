@@ -25,7 +25,7 @@ class IndexView(TemplateView):
         return context
 
 
-def response_api(func):
+def response_api_images(func):
     """ Renders JsonResponse objects. """
 
     def wraps(*args, **kwargs):
@@ -63,7 +63,7 @@ def response_api(func):
     return wraps
 
 
-@response_api
+@response_api_images
 def sales_hits(request):
     """ Function responsible for section 'sales hits'. """
 
@@ -77,7 +77,7 @@ def sales_hits(request):
     return query
 
 
-@response_api
+@response_api_images
 def get_products(request):
     """ Function responsible for section 'all products'. """
 
@@ -110,6 +110,24 @@ def get_pictures(request, product_slug):
         {'images': json_data}
     )
 
+
+def get_comments(request, product_slug):
+    """ Function responsible for 'comments' section. """
+
+    slug = request.__dict__['path_info'].lstrip('/product_comments/')
+
+    query = Products.objects.filter(slug=slug).select_related().values(
+        'comment__content',
+    )
+    json_objects = simplejson.dumps([item for item in query])
+
+    json_data = json.loads(json_objects)
+
+    return JsonResponse(
+        {'comments': json_data}
+    )
+
+
 class ProductCard(FormMixin, DetailView):
     model = Products
     form_class = ReviewFrom
@@ -125,7 +143,7 @@ class ProductCard(FormMixin, DetailView):
         context['comment_form'] = ReviewFrom()
 
         context['comments'] = Products.objects.filter(slug=self.kwargs['product_slug']).select_related().values(
-            'comment__content'
+            'comment__content',
         )
 
         return context
