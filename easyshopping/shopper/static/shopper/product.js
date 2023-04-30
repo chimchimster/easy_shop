@@ -2,7 +2,7 @@
 let comment_counter = 0
 
 // Define comment quantity
-let comment_quantity = 100
+let comment_quantity = 5
 
 
 // Loading DOM elements
@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
     load_comments();
     apply_onclick();
 })
+
+// If scrolled to bottom, render new comments
+window.onscroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        load_comments();
+    }
+}
 
 
 // Loading bunch of comments connected with product
@@ -23,7 +30,7 @@ function load_comments() {
     .then(response => response.json())
     .then(data => {
         console.log(data.products)
-        data.products.forEach((item) => add_item(item.comment__content, 'unique-comment', 'all-comments', 'div', 'comment'))
+        data.products.forEach((item) => add_item(item, 'unique-comment', 'all-comments', 'div', 'comment'))
     })
 
 }
@@ -69,7 +76,7 @@ function add_item(content, child_div_class_name, parent_id_name, element_tag, ty
     if (type === 'image') {
         item.innerHTML = `<img src='${img_src()}/media/${content}'>`;
     } else {
-        item.innerHTML = `<p>${content}</p>`
+        item.innerHTML = `<p>${content.comment__content}</p><br><p>${content.comment__author_id__username}</p>`
     }
     document.getElementById(parent_id_name).append(item);
     if (element_tag === 'li') {
