@@ -131,6 +131,7 @@ def get_comments(request, product_slug):
 
     query = Products.objects.filter(slug=slug).select_related().values(
         'comment__content',
+        'comment__author_id__username'
     )
 
     return query
