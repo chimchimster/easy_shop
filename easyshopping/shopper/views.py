@@ -208,3 +208,6 @@ def activate_email(request, uidb64, token):
         return HttpResponse('Ссылка устарела!')
 
 
+def logout_user(request):
+    logout(request)
+    return redirect('login')

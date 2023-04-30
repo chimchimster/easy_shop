@@ -38,16 +38,16 @@
                     {% endif %}
                 </li>
                 <li class="nav-item">
-                    <a class="Shopping-box" href="">Выйти</a>
+                    <a class="Shopping-box" href="{% url 'logout' %}">Выйти</a>
                 </li>
                 {% else %} 
                 <li class="login-box">
-                    <a class="nav-link" href="{% url 'index' %}"><img
+                    <a class="nav-link" href="{% url 'login' %}"><img
                             src=""
                             alt="login"></a> 
                 </li>
                 <li class="nav-item">
-                        <a class="nav-button" href="">Зарегистрироваться</a>
+                        <a class="nav-button" href="{% url 'register' %}">Зарегистрироваться</a>
                     </li>
     
                 {% endif %}
