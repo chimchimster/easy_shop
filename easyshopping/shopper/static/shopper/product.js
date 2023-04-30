@@ -29,7 +29,6 @@ function load_comments() {
     fetch(`/product_comments/${get_slug()}?start=${start}&end=${end}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data.products)
         data.products.forEach((item) => add_item(item, 'unique-comment', 'all-comments', 'div', 'comment'))
     })
 

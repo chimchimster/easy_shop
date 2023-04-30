@@ -131,7 +131,7 @@ def get_comments(request, product_slug):
 
     query = Products.objects.filter(slug=slug).select_related().values(
         'comment__content',
-        'comment__author_id__username'
+        'comment__author_id__username',
     )
 
     return query
@@ -204,7 +204,7 @@ def activate_email(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponse('Спасибо за подтверждение! Теперь вы можете войти в свой аккаунт!.')
+        return HttpResponseRedirect('Спасибо за подтверждение! Теперь вы можете войти в свой аккаунт!.')
     else:
         return HttpResponse('Ссылка устарела!')
 
