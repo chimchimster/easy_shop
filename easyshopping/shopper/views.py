@@ -1,19 +1,26 @@
 import json
 
 import simplejson
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, get_user_model
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, ListView, DetailView
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from .models import ProductsDescription, Products, Comment
-from .forms import ReviewFrom
+from .forms import ReviewFrom, RegistrationForm, LoginForm
+from .response_apis import response_api, response_api_card_item
+from .token import account_activation_token
 
 
 class IndexView(TemplateView):
@@ -25,60 +32,54 @@ class IndexView(TemplateView):
         return context
 
 
-def response_api(func):
-    """ Renders JsonResponse objects. """
+class RegisterUser(CreateView):
+    form_class = RegistrationForm
+    template_name = 'shopper/register.html'
+    success_url = reverse_lazy('login')
 
-    def wraps(*args, **kwargs):
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
 
-        # Retrieving request from args
-        request = args[0]
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_active = False
+        user.save()
 
-        # Applying initial settings for lazy load
-        start = int(request.GET.get('start') or 0)
-        end = int(request.GET.get('end') or start)
+        # Getting domain of site
+        current_site = get_current_site(self.request)
 
-        # Applying SQL request
-        query = func(*args, **kwargs)
+        mail_subject = 'Ссылка для активации отправлена на ваш почтовый адрес'
 
-        # Creating json data
-        json_objects = simplejson.dumps([item for item in query])
+        message = render_to_string(
+            'shopper/account_activate.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
 
-        json_data = json.loads(json_objects)
+        to_email = form.cleaned_data.get('email')
 
-        # Creating list and fill it by objects
-        data = []
-        try:
-            for i in range(start, end):
-                data.append(json_data[i])
-        except IndexError as i:
-            print(i)
-
-        return JsonResponse(
-            {
-                'products': data,
-                'length': len(json_data),
-            },
+        email = EmailMessage(
+            mail_subject,
+            message,
+            to=[to_email]
         )
 
-    return wraps
+        email.send()
 
-def response_api_card_item(func):
-
-    def wraps(*args, **kwargs):
-
-        query = func(*args, **kwargs)
-
-        json_objects = simplejson.dumps([item for item in query])
-
-        json_data = json.loads(json_objects)
-
-        return JsonResponse(
-            {'items': json_data}
-        )
-
-    return wraps
+        return HttpResponse('Ссылка для активации отправлена на вашу почту. Пройдите активацию')
 
 
+class LoginUser(LoginView):
+    form_class = LoginForm
+    template_name = 'shopper/login.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('index')
 
 @response_api
 def sales_hits(request):
@@ -191,5 +192,19 @@ class ProductCard(FormMixin, DetailView):
         )
 
 
+def activate_email(request, uidb64, token):
+    User = get_user_model()
+
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return HttpResponse('Спасибо за подтверждение! Теперь вы можете войти в свой аккаунт!.')
+    else:
+        return HttpResponse('Ссылка устарела!')
 
 
