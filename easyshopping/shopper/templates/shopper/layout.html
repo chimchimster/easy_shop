@@ -15,43 +15,52 @@
     <div class="CONTEINER-nav-conteiner">
 
         <div class="nav-conteiner">
-            <ul>
-                <li>
-                    <a class="nav-link" href="{% url 'index' %}"><ion-icon name="cart-outline" class="Nav-icons"></ion-icon>
+            <div>
+                <ul>
+                    <li>
+                        <a class="Nav-icons" href="{% url 'index' %}"><ion-icon name="cart-outline" class="Nav-icons"></ion-icon></a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <h1>Shop Logo</h1>
+                    </li>
+                </ul>
+                    {% if user.is_authenticated %}
+                    <ul>
+
+                 
+                        {% if user.is_authenticated %}
+                        <li class="You-are-logged-in-as">Hi! <br> <strong>{{ user.username }}</strong>.</li>
+                        <li class="login-box">
+                            <a class="Nav-icons" href="{% url 'index' %}"><ion-icon name="person-outline" class="Nav-icons"></ion-icon></a>
+                        </li>
+                        {% else %}
+                        Вы не вошли в систему.
+                        {% endif %}
+                    
+                    
+    
+                        <li class="nav-item">
+                            <a class="Nav-icons" href="{% url 'logout' %}"><ion-icon name="log-out-outline" class="Nav-icons" ></ion-icon></a>
+                        </li>
+                    </ul>
+                    
 
                     
-                    </a>
-                </li>
-                <li>
-                    <h1>Shop Logo</h1>
-                </li>
-                <li class="login-box">
-                    <a class="nav-link" href="{% url 'index' %}"><ion-icon name="person-outline" class="Nav-icons"></ion-icon>
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                    {% if user.is_authenticated %}
-                    Вы вошли, как <strong>{{ user.username }}</strong>.
-                    {% else %}
-                    Вы не вошли в систему.
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    <a class="Shopping-box" href="{% url 'logout' %}">Выйти</a>
-                </li>
-                {% else %} 
-                <li class="login-box">
-                    <a class="nav-link" href="{% url 'login' %}"><img
-                            src=""
-                            alt="login"></a> 
-                </li>
-                <li class="nav-item">
-                        <a class="nav-button" href="{% url 'register' %}">Зарегистрироваться</a>
-                    </li>
-    
-                {% endif %}
-            </ul>
+                        {% else %} 
+                        <ul>
+                        <li class="login-box">
+                            <a class="Nav-icons" href="{% url 'login' %}"><ion-icon name="person-outline" class="Nav-icons"></ion-icon></a> 
+                        </li>
+                        <li class="nav-item">
+                                <a class="Nav-icons" href="{% url 'register' %}"><ion-icon name="person-add-outline" class="Nav-icons"></ion-icon></a>
+                            </li>
+            
+                        {% endif %}
+                   </ul>
+                
+            </div>
         </div>
         <div class="nav-brands">
             <nav>

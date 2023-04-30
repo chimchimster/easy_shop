@@ -41,30 +41,41 @@ body {
   margin-right: 15%;
 
 }
-
-.nav-conteiner>ul {
+.nav-conteiner>div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-conteiner>div>ul {
+  list-style-type: none;
   padding: 0px;
   margin: auto;
+  
 }
 
-.nav-conteiner>ul>li {
+.nav-conteiner>div>ul>li {
+  display: inline-block;
   list-style-type: none;
   text-align: center;
+  vertical-align: middle;
 }
-
-.nav-conteiner>ul>li>h1 {
+.nav-conteiner>div>ul>.You-are-logged-in-as {
+  font-size: 10px;
+  font-weight: 100;
+}
+.nav-conteiner>div>ul>li>h1 {
   font-size: 22px;
 }
 
-.nav-conteiner>ul>li>a {
+.nav-conteiner>div>ul>li>a {
   text-decoration: none;
+  width: 25px;
+  height: 25px;
 }
 
-.nav-conteiner>ul>li>a>.Nav-icons {
+.nav-conteiner>div>ul>li>a>.Nav-icons {
   width: 25px;
   height: 25px;
   color: black;
@@ -724,9 +735,9 @@ font-size: 16px;
     text-decoration: none;
 }
 
-
+*/
 reg
-.motherRegContainer {
+ .motherRegContainer {
     display: block;
     text-align: center;
     margin-top: 40px;
@@ -894,4 +905,4 @@ display: inline-block;
     margin-top: 0px;
     margin-bottom: 0px;
 }  
-  */
+ 
