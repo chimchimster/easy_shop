@@ -31,7 +31,7 @@
 
                  
                         {% if user.is_authenticated %}
-                        <li class="You-are-logged-in-as">Hi! <br> <strong>{{ user.username }}</strong>.</li>
+                        <li class="You-are-logged-in-as">Hi! <strong>{{ user.username }}</strong>.</li>
                         <li class="login-box">
                             <a class="Nav-icons" href="{% url 'index' %}"><ion-icon name="person-outline" class="Nav-icons"></ion-icon></a>
                         </li>
@@ -48,7 +48,6 @@
                     
 
                     
-<<<<<<< HEAD
                         {% else %} 
                         <ul>
                         <li class="login-box">
@@ -62,40 +61,6 @@
                    </ul>
                 
             </div>
-=======
-                    </a>
-                </li>
-                <li>
-                    <h1>Shop Logo</h1>
-                </li>
-                <li class="login-box">
-                    <a class="nav-link" href="{% url 'index' %}"><ion-icon name="person-outline" class="Nav-icons"></ion-icon>
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                    {% if user.is_authenticated %}
-                    Вы вошли, как <strong>{{ user.username }}</strong>.
-                    {% else %}
-                    Вы не вошли в систему.
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    <a class="Shopping-box" href="{% url 'logout' %}">Выйти</a>
-                </li>
-                {% else %} 
-                <li class="login-box">
-                    <a class="nav-link" href="{% url 'login' %}"><img
-                            src=""
-                            alt="login"></a> 
-                </li>
-                <li class="nav-item">
-                        <a class="nav-button" href="{% url 'register' %}">Зарегистрироваться</a>
-                    </li>
-
-                {% endif %}
-            </ul>
->>>>>>> a7f106f9220c04583f6f2f4e05c770343cb2fec7
         </div>
         <div class="nav-brands">
             <nav>
